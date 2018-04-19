@@ -20,10 +20,10 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },   
-  // `note` is an object that stores a Note id
-  note: {
+  // `comment` is an object that stores a Comment id
+  comment: {
     type: Schema.Types.ObjectId,
-    ref: "Note"
+    ref: "Comment"
   }
 });
 
