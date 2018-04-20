@@ -18,8 +18,19 @@ app.use(express.static("public"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-var routes = require("./controller/controller.js");
-app.use(routes);
+mongoose.connect("mongodb://localhost/nyt-scraper")
+
+app.use(require("./routes/apiRoutes"));
+// app.use(require("./routes/htmlRoutes"));
+// app.use(require("./routes/scrapeRoutes"));
+
+app.get("/nyt-scraper", function(req, res) {
+    var url = "www.nytimes.com";
+    request(url, function(err, res, html){
+        var $ = cheerio.load(html);
+       
+    })
+})
 
 
 app.listen(PORT, function() {
