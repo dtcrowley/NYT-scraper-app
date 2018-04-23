@@ -2,21 +2,30 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-var exphbs = require("express-handlebars")
+
+// Our scraping tools
+// Axios is a promised-based http library, similar to jQuery's Ajax method
+// It works on the client and on the server
+var axios = require("axios");
 var cheerio = require("cheerio");
 
-var PORT = process.env.PORT || 3000;
+// Require all models
+var db = require("./models");
 
+var PORT = 3000;
+
+// Initialize Express
 var app = express();
 
-app.use(logger("dev"));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// Configure middleware
 
+// Use morgan logger for logging requests
+app.use(logger("dev"));
+// Use body-parser for handling form submissions
+app.use(bodyParser.urlencoded({ extended: true }));
+// Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
 
 mongoose.connect("mongodb://localhost/nyt-scraper")
 
